@@ -1,0 +1,228 @@
+<html>
+
+    <head>
+        
+        <script src="js/jquery-3.2.1.js"></script>
+        <script src ="js/jquery-ui.js"></script>
+        <script src= "https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/homestyle.css">
+        <link rel="stylesheet" type="text/css" href="css/toolbar.css">
+        
+        <script> 
+            var root = 'https://jsonplaceholder.typicode.com';
+            const num = 10; 
+            var users = []; 
+            var posts = [];
+            var lastPost; 
+            
+            function getUsers() { 
+                
+                return $.ajax({
+                    url : root +'/users', 
+                    method : 'GET',
+                    type : 'JSON', 
+                    success : function(data) { 
+                        users = data; 
+                    }
+                });
+            
+            }
+            
+            function getPosts() { 
+            
+                return $.ajax({
+                    url : root +'/posts', 
+                    method : 'GET',
+                    type : 'JSON',
+                    success : function(data) { 
+                        posts = data; 
+                    }
+                });
+            }
+            
+            function loadPosts(index) { 
+                var i = 1; 
+                var start = index; 
+                
+                while(i <= num && start > -1) {
+                    
+                    createPost(start);
+                    if( start == 0) {
+                        start = - 1;
+                        $('#next').hide();
+                        break;
+                    }
+                    start--; 
+                    i++;    
+                }
+                
+                lastPost = start ;
+            }
+            
+            function createPost(index) {
+                
+                var userId = posts[index].userId - 1;
+                
+                var arf = document.createElement("a");
+                var ls1 = document.createElement("li"); 
+                var ls2 = document.createElement("li"); 
+                var inf = document.createElement("div"); 
+                var tit = document.createElement("div"); 
+                var bod = document.createElement("div"); 
+                var pos = document.createElement("div");
+                var pic = document.createElement("img"); 
+                var hed = document.createElement("div"); 
+                
+                $(arf).addClass("name");
+                $(ls1).addClass("list1"); 
+                $(ls2).addClass("list2");
+                $(inf).addClass("info");
+                $(tit).addClass("title");
+                $(bod).addClass("body");
+                $(pos).addClass("posts");
+                $(pic).addClass("icon");
+                $(hed).addClass("postheader");
+                
+                $(pic).attr('src', "img/test2.jpg");
+                $(ls1).text(posts[index].title);
+                $(ls2).text(posts[index].body); 
+                $(arf).text(users[userId].username); 
+                $(arf).attr('href', 'profile.html?' +(userId+1) )
+                
+                $(inf).append(arf); 
+                $(hed).append(pic); 
+                $(hed).append(inf);
+                
+                $(tit).append(ls1); 
+                $(bod).append(ls2); 
+                
+                $(pos).append(hed);
+                $(pos).append(tit);
+                $(pos).append(bod);
+                
+                $('#postcontainer').append(pos);                 
+            }
+            
+            function start() {        
+
+                loadPosts(posts.length-1); 
+                $( ".button" ).click(function() {
+
+                    if (!$('#header').hasClass("off")) {
+                        $('.button').animate({ 'left': '+201px' 
+                        });
+
+                        $('#slidemenu').animate({'left': '0px'});
+
+                        $('#header').addClass("off");
+                    }
+
+                    else {
+                        $('.button').animate({'left': '-5px'});
+                        $('#slidemenu').animate({'left': '-205px'});
+                        $('#header').removeClass("off");
+                    };
+                });
+                    
+                $('#next').click(function() {
+                    loadPosts(lastPost);
+                });
+                
+                $('#searchBox').keydown(function (e){
+                    if(e.keyCode == 13){
+                        var value = document.getElementById('searchBox').value;
+                        alert(value);
+                    }
+                });
+                    
+            }
+            
+            $(document).ready(function () {
+                
+                    $.when(getPosts(), getUsers()).done(function(){
+                    start(); 
+
+                    });
+                });  
+            
+        </script>
+        
+    </head>
+    
+    <body>
+        <div class = "maincontainer"> 
+            
+            <div id="header">
+                
+                <img src ="img/cloud.gif" width = "80">
+                <img src ="img/moony.gif" width = "100">
+                <img src ="img/cloud2.png" width = "80">
+                <img src ="img/cloud3.png" width = "80">
+                <img src ="img/cloud.gif" width = "80">
+                
+            </div>
+            
+            <div id = "postcontainer"> </div>
+            
+        <div id = "next">
+                    
+                    <a><img src="img/down.png"></a>
+                    
+        </div>
+        
+        <div class="button" style="left: -5px">
+            <div id = "bstyle">
+            
+                <img src ="img/design2.gif">
+                
+            </div>
+        </div>
+
+        <div id="slidemenu" style= "left: -205px"> 
+          <div class="con">
+             <a href = "home.html">
+                  <div class = "anothercon">
+                    <img src = "img/home2.png" id = "homeicon">
+                    <span id = "hometext" class = "text">home</span>
+                    </div>
+             </a> 
+              <a href = "gallery.html">
+                  <div class = "anothercon">
+                    <img src = "img/gallery.png" id = "galicon">
+                      <span id = "galtext" class = "text" >gallery</span>
+                  </div>
+              </a>  
+              <a href = "users.html">
+                  <div class = "anothercon">
+                    <img src = "img/prof.png" id = "profcon">
+                      <span id = "proftext" class = "text" >profiles</span>
+                 </div>
+              </a> 
+                <a href = "galAlbum.html">
+                    <div class = "anothercon">
+                        <img src = "img/album.png" id = "alcon">
+                        <span id = "altext" class = "text" >albums</span>
+                    </div>
+                  </a> 
+            </div>
+               
+         </div>
+        </div>
+        
+        <div id = "top">
+        
+            <form>
+                <input type = "search" id = "searchBox" placeholder = "Search..."/>
+            </form>
+            
+        </div>
+        
+        <div id = "footer">
+        
+        </div>
+        
+    </body>
+
+
+
+</html>

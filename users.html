@@ -1,0 +1,260 @@
+<html>
+    <head>
+        
+        <link rel = "stylesheet" type = "text/css" href = "css/usersstyle.css"/>
+        <link rel = "stylesheet" type = "text/css" href = "css/toolbar.css">
+        <script src = "https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src = "js/jquery-3.2.1.js"></script>
+        <script src = "js/jquery-ui.js"></script>
+        
+        <script> 
+            var root = 'https://jsonplaceholder.typicode.com';
+            var users = []; 
+                 
+            function getUsers() { 
+                
+                return $.ajax({
+                    url : root + '/users', 
+                    method : 'GET', 
+                    type : 'JSON',
+                    success : function(data) { 
+                        users = data;
+                    }
+                });
+            }
+            
+            function loadUsers() {
+                var i; 
+                for(i = 0; i < users.length; i++ )
+                    createUser(i);
+            }
+                
+            function createUser(id) {
+                
+                var prof = document.createElement('div'); 
+                var imag = document.createElement('img');
+                var icon = document.createElement('div'); 
+                var info = document.createElement('div'); 
+                var titl = document.createElement('div');
+                var name = document.createElement('div');
+                var user = document.createElement('div');
+                var desc = document.createElement('div');
+                var econ = document.createElement('div');
+                var eico = document.createElement('div');
+                var emai = document.createElement('div');
+                var acon = document.createElement('div');
+                var aico = document.createElement('div');
+                var addr = document.createElement('div');
+                var pcon = document.createElement('div');
+                var pico = document.createElement('div');
+                var phon = document.createElement('div');
+                var wcon = document.createElement('div');
+                var wico = document.createElement('div');
+                var webs = document.createElement('div');
+                var ccon = document.createElement('div');
+                var cico = document.createElement('div');
+                var comp = document.createElement('div');
+                
+                var link = document.createElement('a');
+                var plin = document.createElement('a');
+                
+                $(prof).addClass('profile'); 
+                $(imag).addClass('picture'); 
+                $(icon).addClass('picCon');
+                $(info).addClass('infoCon'); 
+                $(titl).addClass('title'); 
+                $(name).addClass('name'); 
+                $(user).addClass('username'); 
+                $(desc).addClass('description'); 
+                $(econ).addClass('emailCon'); 
+                $(eico).addClass('emailIcon');
+                $(emai).addClass('email'); 
+                $(acon).addClass('addressCon');
+                $(aico).addClass('addressIcon'); 
+                $(addr).addClass('addr'); 
+                $(pcon).addClass('phoneCon');
+                $(pico).addClass('phoneIcon'); 
+                $(phon).addClass('phone');
+                $(wcon).addClass('websiteCon'); 
+                $(wico).addClass('websiteIcon');
+                $(webs).addClass('web'); 
+                $(ccon).addClass('companyCon'); 
+                $(cico).addClass('companyIcon');
+                $(comp).addClass('comp'); 
+                
+                plin.setAttribute('href', 'profile.html?' +(id+1));
+                plin.innerHTML = "<img class = 'picture' src = 'img/dp.png'>";
+
+                $(name).text(users[id].name); 
+                
+                link.setAttribute('href', 'profile.html?' +(id+1));
+                link.innerHTML = users[id].username;
+                
+                $(eico).attr('src', "emailicon.png");
+                $(emai).text(users[id].email); 
+                
+                $(aico).attr('src', "addressicon.png");
+                $(addr).text(users[id].address.suite 
+                             +', '
+                             + users[id].address.street 
+                             +', '
+                             + users[id].address.city 
+                             +'-'
+                             + users[id].address.zipcode);
+                
+                $(pico).attr('src', "phoneicon.png");
+                $(phon).text(users[id].phone);
+                
+                $(wico).attr('src', "websiteicon.png");
+                $(webs).text(users[id].website); 
+                
+                $(cico).attr('src', "companyicon.png");
+                var obj = $(comp).text(users[id].company.name
+                            + ": "
+                            + users[id].company.catchPhrase
+                            + "\n"
+                            + users[id].company.bs);
+                obj.html(obj.html().replace(/\n/g,'<br/>'));
+                
+                
+                $(icon).append(plin);
+                
+                $(titl).append(name);
+                $(titl).append(user);
+                $(user).append(link);
+                
+                $(desc).append(econ);
+                $(desc).append(acon);
+                $(desc).append(pcon);
+                $(desc).append(wcon);
+                $(desc).append(ccon);
+                
+                $(econ).append(eico);
+                $(acon).append(aico);
+                $(pcon).append(pico);
+                $(wcon).append(wico);
+                $(ccon).append(cico);
+                
+                $(econ).append(emai);
+                $(acon).append(addr);
+                $(pcon).append(phon);
+                $(wcon).append(webs);
+                $(ccon).append(comp);
+                
+                $(info).append(titl);
+                $(info).append(desc);
+                
+                $(prof).append(icon);
+                $(prof).append(info);
+                
+                $(imag).append(link);
+                $(user).append(link);
+                
+                $('#container').append(prof);
+              
+            }
+            
+            function start() {
+                 
+                 loadUsers();
+                
+                 $( ".button" ).click(function() {
+
+                        if (!$('#header').hasClass("off")) {
+                        $('.button').animate({ 'left': '+201px' 
+                        });
+
+                        $('#slidemenu').animate({'left': '0px'});
+
+                        $('#header').addClass("off");
+                        }
+
+                    else {
+                        $('.button').animate({'left': '-5px'});
+                        $('#slidemenu').animate({'left': '-205px'});
+                        $('#header').removeClass("off");
+                        };
+                    });
+                    
+            }    
+            
+            $(document).ready(function() {
+               
+                $.when(getUsers()).done(function() {
+                    start(); 
+                }); 
+                
+                $('#searchBox').keydown(function (e){
+                    if(e.keyCode == 13){
+                        var value = document.getElementById('searchBox').value;
+                        alert(value);
+                    }
+                });
+                
+            });   
+            
+        </script>
+            
+    </head>
+    
+    <body>
+        
+        <div id = "header">
+            <img src = "img/cloud.gif" width = "80">
+            <img src = "img/moony.gif" width = "100">
+            <img src = "img/cloud2.png" width = "80">
+            <img src = "img/cloud3.png" width = "80">
+             <img src = "img/cloud.gif" width = "80">
+        </div>
+        
+        <div class = "button" style = "left: -5px">
+            <div id = "bstyle">
+            
+                <img src = "img/design2.gif">
+                
+            </div>
+        </div>
+
+        <div id = "slidemenu" style= "left: -205px"> 
+          <div class = "con">
+             <a href = "home.html">
+                  <div class = "anothercon">
+                    <img src = "img/home2.png" id = "homeicon">
+                    <span id = "hometext" class = "text">home</span>
+                    </div>
+             </a> 
+              <a href = "gallery.html">
+                  <div class = "anothercon">
+                    <img src = "img/gallery.png" id = "galicon">
+                      <span id = "galtext" class = "text" >gallery</span>
+                  </div>
+              </a>  
+              <a href = "users.html">
+                  <div class = "anothercon">
+                    <img src = "img/prof.png" id = "profcon">
+                      <span id = "proftext" class = "text" >profiles</span>
+                 </div>
+              </a> 
+                <a href = "galAlbum.html">
+                    <div class = "anothercon">
+                        <img src = "img/album.png" id = "alcon">
+                        <span id = "altext" class = "text" >albums</span>
+                    </div>
+                  </a> 
+            </div>
+               
+        </div>
+        
+        <div id = "top">
+        
+            <form>
+                <input type = "text" id = "searchBox" placeholder = "Search..."/>
+            </form>
+            
+        </div>
+        
+        <div id = "container"></div>
+        
+    </body>
+    
+</html>

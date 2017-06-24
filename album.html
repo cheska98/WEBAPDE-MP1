@@ -1,0 +1,228 @@
+<html> 
+    <head> 
+       	<link rel="stylesheet" href="css/album.css"> <link rel="stylesheet" type="text/css" href="css/toolbar.css">
+        <script src ="js/jquery-ui.js"></script>
+        <script src= "https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="js/jquery-3.2.1.js"></script>
+        <script> 
+            var root = 'https://jsonplaceholder.typicode.com';
+            const num = 15; 
+            var albums = [];
+            var users = []; 
+            var lastAlbum; 
+            
+            function getAlbums() { 
+                
+                return $.ajax({
+                    url : root +'/albums', 
+                    method : 'GET', 
+                    type : 'JSON',
+                    success : function(data) { 
+                       albums = data;
+                    }
+                });
+            }
+            
+            function getPhotos() { 
+                
+                return $.ajax({
+                    url : root +'/photos', 
+                    method : 'GET', 
+                    type : 'JSON',
+                    success : function(data) { 
+                        photos = data;
+                    }
+                });
+            
+            }
+            
+            function getUsers() { 
+                
+                return $.ajax({
+                    url : root + '/users', 
+                    method : 'GET', 
+                    type : 'JSON',
+                    success : function(data) { 
+                        users = data;
+                    }
+                });
+            }
+            
+            function getAlbumPics(albumId) { 
+                var i; 
+                for(i = 0; i < photos.length; i++) 
+                    if (photos[i].albumId == albumId)
+                        createPic(photos[i].id);
+            
+            }
+            
+            function createPic(id) { 
+               
+                var i = document.createElement("img"); 
+                $(i).addClass("images"); 
+                $(i).attr('src', photos[id].thumbnailUrl); 
+                $(i).attr('alt', photos[id].id);
+                console.log(i);
+                $('#Container').append(i);
+            }
+            
+            function creatModal(id) { 
+                /** CHECK ARRAY INDEX **/ 
+                
+                var albId = photos[id].albumId - 1; 
+                var userId = albums[albId].userId - 1; 
+        
+                $('.modImg').attr('src', photos[id].url); 
+                $('.captionCon').text(photos[id].title); 
+                $('.album').text(albums[albId].title); 
+                $('.album').attr('href','album.html?' +(albId +1))
+                $('.userName').text(users[userId].name);
+                $('.userName').attr('href', "profile.html?" +(userId + 1));
+                $('.modal').show();
+            }
+            
+            function setTitle(id) {
+                
+                console.log("in set pics" +id);
+                $("#album-title").text(albums[id].title); 
+                $("#album-user").text(users[albums[id].userId-1].name);
+                $("#title").attr('href', "profile.html?" +albums[id].userId);
+            }
+            
+            function start() {        
+                var id; 
+                id = document.URL; 
+                id = id.substring(id.indexOf('?')+1);
+                console.log(id);
+                
+                
+                setTitle(id-1); 
+                getAlbumPics(id);
+                
+                $('.images').click(function () { 
+                    var id = $(this).attr('alt');
+                    creatModal(id-1);
+                }); 
+                
+                $('.modal').click(function(){
+                     $('.modal').hide();
+                }); 
+                
+                $('.close').click(function () { 
+                     $('.modal').hide();
+                }); 
+                
+                $( ".button" ).click(function() {
+
+                        if (!$('#header').hasClass("off")) {
+                        $('.button').animate({ 'left': '+201px' 
+                        });
+
+                        $('#slidemenu').animate({'left': '0px'});
+
+                        $('#header').addClass("off");
+                        }
+
+                    else {
+                        $('.button').animate({'left': '-5px'});
+                        $('#slidemenu').animate({'left': '-205px'});
+                        $('#header').removeClass("off");
+                        };
+                    });
+            }
+                
+            $(document).ready(function () {
+                
+                $.when(getAlbums(), getPhotos(), getUsers()).done(function(){
+                    start(); 
+                });
+                                 
+                $('#searchBox').keydown(function (e){
+                    if(e.keyCode == 13){
+                        var value = document.getElementById('searchBox').value;
+                        alert(value);
+                    }
+                });
+                
+            });       
+           
+        </script>
+      
+    </head>
+    
+    <body id = "Site"> 
+        
+        <div id = "header">
+            <img src ="img/cloud.gif" width = "80">
+            <img src ="img/moony.gif" width = "100">
+            <img src ="img/cloud2.png" width = "80">
+            <img src ="img/cloud3.png" width = "80">
+            <img src ="img/cloud.gif" width = "80">
+        </div>
+        <div class="button" style="left: -5px">
+            <div id = "bstyle">
+            
+                <img src ="img/design2.gif">
+                
+            </div>
+        </div>
+
+        <div id="slidemenu" style= "left: -205px"> 
+          <div class="con">
+             <a href = "home.html">
+                  <div class = "anothercon">
+                    <img src = "img/home2.png" id = "homeicon">
+                    <span id = "hometext" class = "text">home</span>
+                    </div>
+             </a> 
+              <a href = "gallery.html">
+                  <div class = "anothercon">
+                    <img src = "img/gallery.png" id = "galicon">
+                      <span id = "galtext" class = "text" >gallery</span>
+                  </div>
+              </a>  
+              <a href = "users.html">
+                  <div class = "anothercon">
+                    <img src = "img/prof.png" id = "profcon">
+                      <span id = "proftext" class = "text" >profiles</span>
+                 </div>
+              </a> 
+                <a href = "galAlbum.html">
+                    <div class = "anothercon">
+                        <img src = "img/album.png" id = "alcon">
+                        <span id = "altext" class = "text" >albums</span>
+                    </div>
+                  </a> 
+            </div>
+               
+        </div>
+        
+        <div id = "top">
+        
+            <form>
+                <input type = "search" id = "searchBox" placeholder = "Search..."/>
+            </form>
+            
+        </div>
+        
+        <main id = "Site-Content"> 
+            
+            <div id = "Container"> 
+                <div id = "headContainer" >
+                    <div id = "album-title"> Album Title </div>
+                    <div id = "album-user"> user</div>
+                </div> 
+
+            </div> 
+        </main>
+         <div class = "modal" id = "modalView"> 
+            <span class = "close"> &times; </span>
+            <div class = "modContainer"> 
+                <img class = "modImg" src = ""> 
+                <div class = "captionCon">cad</div>
+                <a class = "album"> </a>
+                <a class = "userName"> </a> 
+            </div>
+        </div>
+    </body>
+</html>

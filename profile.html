@@ -1,0 +1,353 @@
+<html>
+    <head>
+        
+        <link rel = "stylesheet" type = "text/css" href = "css/profilestyle.css"/>
+        <link rel="stylesheet" type="text/css" href="css/toolbar.css">
+        
+        <script language = javascript src = "http://maps.google.com/maps/api/js?sensor=false"></script>
+        <script src = "js/jquery-3.2.1.js"></script>
+        <script src = "js/jquery-ui.js"></script>
+        <script src= "https://code.jquery.com/jquery-3.2.1.min.js"></script>
+         
+        <script>
+            var root = 'https://jsonplaceholder.typicode.com';
+            var users = []; 
+            var albums = []; 
+            var photos = [];
+            var posts = []; 
+            var lat, lng;
+                
+            function getPosts() { 
+            
+                return $.ajax({
+                    url : root +'/posts', 
+                    method : 'GET',
+                    type : 'JSON',
+                    success : function(data) { 
+                        posts = data; 
+                    }
+                });
+            }
+               
+            function getUsers() { 
+                
+                return $.ajax({
+                    url : root + '/users', 
+                    method : 'GET', 
+                    type : 'JSON',
+                    success : function(data) { 
+                        users = data;
+                    }
+                });
+            }
+            
+            function getAlbums() { 
+                
+                return $.ajax({
+                    url : root +'/albums', 
+                    method : 'GET', 
+                    type : 'JSON',
+                    success : function(data) { 
+                       albums = data;
+                    }
+                });
+            }
+            
+            function getPhotos() { 
+                
+                return $.ajax({
+                    url : root +'/photos', 
+                    method : 'GET', 
+                    type : 'JSON',
+                    success : function(data) { 
+                        photos = data;
+                    }
+                });
+            
+            }
+            
+            function createUserProfile(userId) {
+                
+                $('#name').text(users[userId].name);
+                $('#username').text(users[userId].username);
+                $('#emailText').text(users[userId].email); 
+                $('#addressText').text(users[userId].address.suite 
+                                        +', '
+                                        + users[userId].address.street 
+                                        +', '
+                                        + users[userId].address.city 
+                                        +'-'
+                                        + users[userId].address.zipcode); 
+                $('#phoneText').text(users[userId].phone); 
+                $('#websiteText').text(users[userId].website); 
+                $('#companyText').text(users[userId].company.name 
+                                     +', '
+                                     +users[userId].company.catchPhrase+', '
+                                     +users[userId].company.bs);  
+            }
+            
+            function getUsersPost(userId) { 
+                var i;
+             
+                for( i = 0; i < posts.length; i++) {
+                    if(posts[i].userId == userId) {
+                        createPost(i); 
+                    }
+                }
+                
+            
+            }
+            
+            function createPost(postId) {
+                
+                var pos = document.createElement('div'); 
+                var tit = document.createElement('div'); 
+                var tex = document.createElement('div'); 
+                
+                $(pos).addClass('post'); 
+                $(tit).addClass('postTitle');
+                $(tex).addClass('postText');
+            
+                $(tit).text(posts[postId].title);
+                $(tex).text(posts[postId].body);
+                
+                $(pos).append(tit);
+                $(pos).append(tex);
+                
+                $('#posts').append(pos);
+                
+            }
+            
+            function getUserAlbums(Id) { 
+                var i = 0; 
+              
+                for(i= 0; i < albums.length; i++) { 
+                    if(albums[i].userId == Id) {
+                        getAlbumPics(i+1);
+                    }
+             
+            }
+            }
+            function getAlbumPics(albumId) { 
+              var index, i; 
+              var found = false; 
+          
+              for(i = 0; i < photos.length && !found; i++ ) { 
+                    if(photos[i].albumId == albumId) { 
+                        createPic(i); 
+                        found = true;
+                    }
+                } 
+            } 
+            
+            function createPic(id) { 
+                
+                var image = document.createElement('img'); 
+                var ahref = document.createElement('a'); 
+                var aname = document.createElement('div'); 
+                var album = document.createElement('div'); 
+                
+                $(image).addClass('thumbnail'); 
+                $(ahref).addClass('con'); 
+                $(aname).addClass('albumName'); 
+                $(album).addClass('album'); 
+                
+                $(image).attr('src', photos[id].thumbnailUrl); 
+                $(ahref).attr('href', 'album.html?' +(photos[id].albumId));
+                $(aname).text(albums[photos[id].albumId - 1].title);
+                
+                $(ahref).append(image); 
+                
+                $(album).append(ahref); 
+                $(album).append(aname);
+                
+                $('#albums').append(album);
+                   
+            }
+            
+            
+            function initialize(){
+                var myLatlng = new google.maps.LatLng(lat,lng);
+                var myOptions = {
+                    zoom: 2,
+                    center: myLatlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+                
+                map = new google.maps.Map(document.getElementById("map"), myOptions);
+                var marker = new google.maps.Marker({
+                    position: myLatlng, 
+                    map: map,
+                    title:"Fast marker"
+                });
+            } 
+
+            google.maps.event.addDomListener(window,'load', initialize);
+            
+            function start() {
+                    var url = document.URL; 
+                    var userid = url.substring(url.indexOf('?')+1);
+                
+                    lat = users[userid-1].address.geo.lat;
+                    lng = users[userid-1].address.geo.lng;
+                    console.log(lat);
+                    console.log(lng);
+                
+                    initialize();
+                    createUserProfile(userid-1);
+                    getUsersPost(userid);
+                    getUserAlbums(userid);
+                
+                $( ".button" ).click(function() {
+
+                        if (!$('#header').hasClass("off")) {
+                        $('.button').animate({ 'left': '+201px' 
+                        });
+
+                        $('#slidemenu').animate({'left': '0px'});
+
+                        $('#header').addClass("off");
+                        }
+
+                    else {
+                        $('.button').animate({'left': '-5px'});
+                        $('#slidemenu').animate({'left': '-205px'});
+                        $('#header').removeClass("off");
+                        };
+                    });
+                
+            }
+                
+             $(document).ready(function() {
+               
+                $.when(getUsers(), getAlbums(), getPhotos(), getPosts()).done(function() {
+                    
+                    start(); 
+                }); 
+            });  
+        </script>
+        
+    </head>
+    
+    <body style= "background-image: url(img/bg.gif)">
+        
+       
+        <div id = "topContainer">
+            <div id = "header">
+            </div>
+        
+            <form>
+                <input type = "search" id = "searchBox" placeholder = "Search..."/>
+            </form>
+            
+            <div id = "top">
+    
+                <div id = "profile">
+                    <div id = "picture"></div>
+                    <div id = "bio">
+                        <div id = "title">
+                            <div class = "titleInfo" id = "name"> </div>
+                            <div class = "titleInfo" id = "username"> </div>
+                        </div>
+                        <div id = "description">
+                            
+                            <div class = "desc" id = "email">
+                                <div class = "icons" id = "emailIcon"></div>
+                                <div class = "descText" id = "emailText"></div>
+                            </div>
+                            
+                            <div class = "desc" id = "address">
+                                <div class = "icons" id = "addressIcon"></div>
+                                <div class = "descText" id = "addressText"></div>
+                            </div>
+                            
+                            <div class = "desc" id = "phone">
+                                <div class = "icons" id = "phoneIcon"></div>
+                                <div class = "descText" id = "phoneText"></div>
+                            </div> 
+                            
+                            <div class = "desc" id = "website">
+                                <div class = "icons" id = "websiteIcon"></div>
+                                <div class = "descText" id = "websiteText"></div>
+                            </div>
+                            
+                            <div class = "desc" id = "company">
+                                <div class = "icons" id = "companyIcon"></div>
+                                <div class = "descText" id = "companyText"></div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+    
+                <div id = "mapContainer">
+                
+                    <div id = "map"></div>
+                
+                </div>
+            </div>
+            
+        </div>
+        
+        <div id = "spacer"></div>
+        
+        <div id = "container">
+            
+            <div id = "content">
+            
+                <div class = "col" id = "posts">
+                
+                    <div class = "header" id = "postsHeader"> POSTS </div>
+                    
+                </div>
+        
+                <div class = "col" id = "albums">
+                
+                    <div class = "header"> ALBUMS </div>
+                        
+                </div>
+                
+            </div>
+            
+            <div class="button" style="left: -5px">
+            <div id = "bstyle">
+            
+                <img src ="img/design2.gif">
+                
+            </div>
+        </div>
+
+        <div id="slidemenu" style= "left: -205px"> 
+          <div class="con">
+             <a href = "home.html">
+                  <div class = "anothercon">
+                    <img src = "img/home2.png" id = "homeicon">
+                    <span id = "hometext" class = "text">home</span>
+                    </div>
+             </a> 
+              <a href = "gallery.html">
+                  <div class = "anothercon">
+                    <img src = "img/gallery.png" id = "galicon">
+                      <span id = "galtext" class = "text" >gallery</span>
+                  </div>
+              </a>  
+              <a href = "users.html">
+                  <div class = "anothercon">
+                    <img src = "img/prof.png" id = "profcon">
+                      <span id = "proftext" class = "text" >profiles</span>
+                 </div>
+              </a> 
+                <a href = "galAlbum.html">
+                    <div class = "anothercon">
+                        <img src = "img/album.png" id = "alcon">
+                        <span id = "altext" class = "text" >albums</span>
+                    </div>
+                  </a> 
+            </div>
+               
+         </div>
+        
+        </div>
+        
+    </body>
+</html>

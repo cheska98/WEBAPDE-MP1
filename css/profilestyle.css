@@ -1,0 +1,278 @@
+/*  color scheme
+    #5c7598 - dark blue 
+    #abb7c8 - dark grey 
+    #dadadb - light grey 
+    #f7f0c7 - yellow
+    #c2c4b6 - beige 
+*/
+
+div {
+    font-family: "Cambria", sans-serif;
+}
+
+#topContainer {
+    width: 100%;
+    height: 38%;
+    top: 0%;
+    left: 0%;
+    position: fixed;
+    background-image: url(../img/bg.gif)
+}
+/**
+#header {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+**/
+#searchBox {
+    width: 14%;
+    height: 15%;
+    display: block;
+    float: right;
+    margin-top: 2%;
+    margin-right: 1%;
+    font-family: "Cambria", sans-serif;
+    font-size: 13px;
+    color: #5c7598;
+    padding-left: 2%;
+    padding-right: 1%;
+    background-image: url("../img/searchicon.png");
+    background-size: 13% auto;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-color: white;
+    border-radius: 10px;
+}
+
+#top {
+    width: 67%;
+    height: 86%;
+    margin-top: 5%;;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#profile {
+    width: 42%;
+    height: 23%;
+    float: left;
+    position: fixed;
+    display: inline-flex;
+    color: #3c4b60;
+    border-radius: 10px;
+    padding: 0.8%;
+    background: rgba(218,218,219,0.7);
+    font-size: 14px;
+}
+
+#picture {
+    background-image: url(../img/inho.jpg);
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 27%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+#bio {
+    width: 72%;
+    height: 100%;
+    margin-left: 4%;
+}
+
+#title {
+    width: 100%;
+    margin-bottom: 1%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 14px;
+}
+
+.titleInfo {
+    margin-right: 13%;
+}
+
+#name {
+    font-weight: bold;
+}
+
+a {
+    color: #3c4b60;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #3c4b60;
+}
+
+a:hover {
+    color: #5c7598;
+}
+
+#description {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.desc {
+    width: 100%;
+    height: 14%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 2%;
+}
+
+.icons {
+    width: 10%;
+    height: 100%;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+}
+
+.descText {
+    width: 90%;
+    height: 100%;
+}
+
+#emailIcon {
+    background-image: url(../img/emailicon.png);
+}
+
+#addressIcon {
+    background-image: url(../img/addressicon.png);
+}
+
+#phoneIcon{
+    background-image: url(../img/phoneicon.png);
+}
+
+#websiteIcon {
+    background-image: url(../img/websiteicon.png);
+}
+
+#companyIcon {
+    background-image: url(../img/companyicon.png);
+}
+
+#mapContainer {
+    float: right;
+    width: 33%;
+    height: 20.5%;
+}
+
+#map {
+    width: 100%;
+    height: 395%;
+    border-radius: 10px;
+}
+
+#spacer {
+    height: 38%;
+    width: 100%;
+    background-image: url(../img/bg.gif);
+}
+
+#container {
+    width: 100%;
+    height: auto;
+    top: 0%;
+    left: 0%;
+}
+
+#content {
+    width: 67%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.col {
+    width: 49%;
+    height: auto;
+    margin-bottom: 3%;
+    background: rgba(218,218,219,0.6);
+}
+
+.header {
+    width: 100%;
+    display: block;
+    margin: auto;
+    margin-bottom: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 4%;
+    background-color: #dadadb;
+    font-size: 18px;
+    font-weight: bold;
+    color: #5c7598;
+    box-sizing: border-box;
+}
+
+#posts {
+    float: left;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.post {
+    width: 90%;
+    height: auto;
+    margin-bottom: 5%;
+    margin-left: 4%;
+    margin-right: 4%;
+    padding: 5%;
+    font-size: 15px;
+    background: rgba(218,218,219,0.6);
+    border-radius: 10px;
+}
+
+.postTitle {
+    margin-bottom: 3%;
+    font-weight: bold;
+    color: #3c4b60;
+}
+
+.post:hover {
+    background: rgba(218,218,219,0.8);
+}
+
+#albums {
+    float: right;
+}
+
+.album {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.albumName {
+    width: 50%;
+    height: auto;
+    margin-left: 9%;
+    margin-top: 3%;
+}
+
+.thumbnail {
+    width: 150px;
+    height: 150px;
+    float: left;
+    margin-left: 9%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding: 1px;
+    border: 3px solid rgba(218,218,219,0.0);
+}
+
+.thumbnail:hover { 
+    transform:scale(1.05);
+    border: 3px solid #5c7598;
+}

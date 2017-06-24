@@ -1,0 +1,234 @@
+div {
+    font-family: "Cambria", sans-serif;
+}
+
+body {
+    background-image: url(../img/bg.gif);
+    background-repeat: repeat;
+}
+
+#top {
+    width: 100%;
+    height: 68px;
+    top: 0%;
+    left: 0%;
+    position: fixed;
+    display: block;
+}
+
+#searchBox {
+    width: 189px;
+    height: 39px;
+    float: right;
+    margin-top: 2%;
+    margin-right: 1%;
+    font-family: "Cambria", sans-serif;
+    font-size: 13px;
+    color: #5c7598;
+    padding-left: 2%;
+    padding-right: 1%;
+    background-image: url("../img/searchicon.png");
+    background-size: 13% auto;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-color: white;
+    border-radius: 10px;
+}
+
+#header {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-top: 1%;
+    padding-bottom: 3%;
+}
+
+.profile {
+    width: 55%;
+    height: 38%;
+    margin-bottom: 3%;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-flex;
+    border-radius: 10px;
+    padding: 1%;
+    background: rgba(218,218,219,0.6);
+    color: #3c4b60;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px transparent;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow;
+    transition-property: box-shadow;
+}
+
+.profile:hover {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.picCon {
+    width: 25%;
+    height: 70%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 3%;
+}
+
+.picture {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+
+.infoCon {
+    width: 72%;
+    height: 100%;
+    margin-left: 6%;
+}
+
+.title {
+    width: 100%;
+    margin-bottom: 2%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.name {
+    width: 40%;
+    font-weight: bold;
+    margin-right: 13%;
+}
+
+.username {
+    width: 45%;
+}
+
+a {
+    color: #3c4b60;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #3c4b60;
+}
+
+a:hover {
+    color: #5c7598;
+}
+
+.description {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.emailCon {
+    width: 100%;
+    height: 14%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 2%;
+}
+
+.addressCon {
+    width: 100%;
+    height: 14%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 2%;
+}
+
+.phoneCon {
+    width: 100%;
+    height: 14%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 2%;
+}
+
+.websiteCon {
+    width: 100%;
+    height: 14%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 2%;
+}
+
+.companyCon {
+    width: 100%;
+    height: 14%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 2%;
+}
+
+.icons {
+    width: 8%;
+    height: 100%;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+}
+
+.descText {
+    width: 90%;
+    height: 100%;
+}
+
+.emailIcon {
+    width: 9%;
+    height: 100%;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-image: url(../img/emailicon.png);
+}
+
+.addressIcon {
+    width: 9%;
+    height: 100%;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-image: url(../img/addressicon.png);
+}
+
+.phoneIcon{
+    width: 9%;
+    height: 100%;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-image: url(../img/phoneicon.png);
+}
+
+.websiteIcon {
+    width: 9%;
+    height: 100%;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-image: url(../img/websiteicon.png);
+}
+
+.companyIcon {
+    width: 9%;
+    height: 100%;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-image: url(../img/companyicon.png);
+}
+

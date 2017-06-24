@@ -1,12 +1,12 @@
 <html>
-
     <head>
         
-        <script src="js/jquery-3.2.1.js"></script>
-        <script src ="js/jquery-ui.js"></script>
-        <script src= "https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/homestyle.css">
-        <link rel="stylesheet" type="text/css" href="css/toolbar.css">
+        <link rel = "stylesheet" type = "text/css" href = "../WEBAPDE-MP1/css/homestyle.css">
+        <link rel = "stylesheet" type = "text/css" href = "../WEBAPDE-MP1/css/toolbar.css">
+        
+        <script src = "../WEBAPDE-MP1/js/jquery-3.2.1.js"></script>
+        <script src = "../WEBAPDE-MP1/js/jquery-ui.js"></script>
+        <script src = "https://code.jquery.com/jquery-3.2.1.min.js"></script>
         
         <script> 
             var root = 'https://jsonplaceholder.typicode.com';
@@ -83,7 +83,7 @@
                 $(pic).addClass("icon");
                 $(hed).addClass("postheader");
                 
-                $(pic).attr('src', "img/test2.jpg");
+                $(pic).attr('src', "../WEBAPDE-MP1/img/dp.png");
                 $(ls1).text(posts[index].title);
                 $(ls2).text(posts[index].body); 
                 $(arf).text(users[userId].username); 
@@ -150,63 +150,68 @@
     </head>
     
     <body>
-        <div class = "maincontainer"> 
-            
-            <div id="header">
-                
-                <img src ="img/cloud.gif" width = "80">
-                <img src ="img/moony.gif" width = "100">
-                <img src ="img/cloud2.png" width = "80">
-                <img src ="img/cloud3.png" width = "80">
-                <img src ="img/cloud.gif" width = "80">
-                
+        
+        <div id = "headerCon">
+            <div id = "header">
+                <img src = "../WEBAPDE-MP1/img/cloud.gif" width = "80">
+                <img src = "../WEBAPDE-MP1/img/moony.gif" width = "100">
+                <img src = "../WEBAPDE-MP1/img/cloud2.png" width = "80">
+                <img src = "../WEBAPDE-MP1/img/cloud3.png" width = "80">
+                <img src = "../WEBAPDE-MP1/img/cloud.gif" width = "80">
             </div>
+            <div id = "title">
+                <img src = "../WEBAPDE-MP1/img/title.png"  id = "titlepic" height = "50">
+            </div>
+        </div>
+        
+        <div class = "maincontainer"> 
             
             <div id = "postcontainer"> </div>
             
-        <div id = "next">
-                    
-                    <a><img src="img/down.png"></a>
-                    
-        </div>
-        
-        <div class="button" style="left: -5px">
-            <div id = "bstyle">
-            
-                <img src ="img/design2.gif">
-                
-            </div>
-        </div>
+            <div id = "next">
 
-        <div id="slidemenu" style= "left: -205px"> 
-          <div class="con">
-             <a href = "home.html">
-                  <div class = "anothercon">
-                    <img src = "img/home2.png" id = "homeicon">
-                    <span id = "hometext" class = "text">home</span>
-                    </div>
-             </a> 
-              <a href = "gallery.html">
-                  <div class = "anothercon">
-                    <img src = "img/gallery.png" id = "galicon">
-                      <span id = "galtext" class = "text" >gallery</span>
-                  </div>
-              </a>  
-              <a href = "users.html">
-                  <div class = "anothercon">
-                    <img src = "img/prof.png" id = "profcon">
-                      <span id = "proftext" class = "text" >profiles</span>
-                 </div>
-              </a> 
-                <a href = "galAlbum.html">
-                    <div class = "anothercon">
-                        <img src = "img/album.png" id = "alcon">
-                        <span id = "altext" class = "text" >albums</span>
-                    </div>
-                  </a> 
+                <a><img src = "../WEBAPDE-MP1/img/down.png"></a>
+
             </div>
+
+            <div class = "button" style = "left: -5px">
+                <div id = "bstyle">
+
+                    <img src = "../WEBAPDE-MP1/img/design2.gif">
+
+                </div>
+            </div>
+
+            <div id = "slidemenu" style = "left: -205px"> 
+              <div class = "con">
+                 <a href = "home.html">
+                      <div class = "anothercon">
+                        <img src = "../WEBAPDE-MP1/img/home2.png" id = "homeicon">
+                        <span id = "hometext" class = "text">home</span>
+                        </div>
+                 </a> 
+                  <a href = "gallery.html">
+                      <div class = "anothercon">
+                        <img src = "../WEBAPDE-MP1/img/gallery.png" id = "galicon">
+                          <span id = "galtext" class = "text" >gallery</span>
+                      </div>
+                  </a>  
+                  <a href = "users.html">
+                      <div class = "anothercon">
+                        <img src = "../WEBAPDE-MP1/img/prof.png" id = "profcon">
+                          <span id = "proftext" class = "text" >profiles</span>
+                     </div>
+                  </a> 
+                    <a href = "galAlbum.html">
+                        <div class = "anothercon">
+                            <img src = "../WEBAPDE-MP1/img/album.png" id = "alcon">
+                            <span id = "altext" class = "text" >albums</span>
+                        </div>
+                      </a> 
+                </div>
                
-         </div>
+            </div>
+            
         </div>
         
         <div id = "top">

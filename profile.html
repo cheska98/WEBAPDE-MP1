@@ -2,7 +2,7 @@
     <head>
         
         <link rel = "stylesheet" type = "text/css" href = "css/profilestyle.css"/>
-        <link rel="stylesheet" type="text/css" href="css/toolbar.css">
+        <link rel="stylesheet" type = "text/css" href="../WEBAPDE-MP1/css/toolbar.css">
         
         <script language = javascript src = "http://maps.google.com/maps/api/js?sensor=false"></script>
         <script src = "js/jquery-3.2.1.js"></script>
@@ -80,10 +80,13 @@
                                         + users[userId].address.zipcode); 
                 $('#phoneText').text(users[userId].phone); 
                 $('#websiteText').text(users[userId].website); 
-                $('#companyText').text(users[userId].company.name 
-                                     +', '
-                                     +users[userId].company.catchPhrase+', '
-                                     +users[userId].company.bs);  
+                var obj = $('#companyText').text(users[userId].company.name 
+                                    + ': '
+                                    + users[userId].company.catchPhrase
+                                    + '\n'
+                                     + users[userId].company.bs);  
+                obj.html(obj.html().replace(/\n/g,'<br/>'));
+    
             }
             
             function getUsersPost(userId) { 
@@ -229,7 +232,7 @@
         
     </head>
     
-    <body style= "background-image: url(img/bg.gif)">
+    <body>
         
        
         <div id = "topContainer">
@@ -309,37 +312,37 @@
                 
             </div>
             
-            <div class="button" style="left: -5px">
+            <div class = "button" style="left: -5px">
             <div id = "bstyle">
             
-                <img src ="img/design2.gif">
+                <img src = "../HTML/img/design2.gif">
                 
             </div>
         </div>
 
-        <div id="slidemenu" style= "left: -205px"> 
-          <div class="con">
+        <div id = "slidemenu" style= "left: -205px"> 
+          <div class = "con">
              <a href = "home.html">
                   <div class = "anothercon">
-                    <img src = "img/home2.png" id = "homeicon">
+                    <img src = "../WEBAPDE-MP1/img/home2.png" id = "homeicon">
                     <span id = "hometext" class = "text">home</span>
                     </div>
              </a> 
               <a href = "gallery.html">
                   <div class = "anothercon">
-                    <img src = "img/gallery.png" id = "galicon">
+                    <img src = "../WEBAPDE-MP1/img/gallery.png" id = "galicon">
                       <span id = "galtext" class = "text" >gallery</span>
                   </div>
               </a>  
               <a href = "users.html">
                   <div class = "anothercon">
-                    <img src = "img/prof.png" id = "profcon">
+                    <img src = "../WEBAPDE-MP1/img/prof.png" id = "profcon">
                       <span id = "proftext" class = "text" >profiles</span>
                  </div>
               </a> 
                 <a href = "galAlbum.html">
                     <div class = "anothercon">
-                        <img src = "img/album.png" id = "alcon">
+                        <img src = "../WEBAPDE-MP1/img/album.png" id = "alcon">
                         <span id = "altext" class = "text" >albums</span>
                     </div>
                   </a> 

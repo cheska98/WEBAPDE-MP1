@@ -1,11 +1,11 @@
 <html>
     <head>
         
-        <link rel = "stylesheet" type = "text/css" href = "css/usersstyle.css"/>
-        <link rel = "stylesheet" type = "text/css" href = "css/toolbar.css">
+        <link rel = "stylesheet" type = "text/css" href = "../WEBAPDE-MP1/css/usersstyle.css"/>
+        <link rel = "stylesheet" type = "text/css" href = "../WEBAPDE-MP1/css/toolbar.css">
         <script src = "https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script src = "js/jquery-3.2.1.js"></script>
-        <script src = "js/jquery-ui.js"></script>
+        <script src = "../WEBAPDE-MP1/js/jquery-3.2.1.js"></script>
+        <script src = "../WEBAPDE-MP1/js/jquery-ui.js"></script>
         
         <script> 
             var root = 'https://jsonplaceholder.typicode.com';
@@ -83,7 +83,7 @@
                 $(comp).addClass('comp'); 
                 
                 plin.setAttribute('href', 'profile.html?' +(id+1));
-                plin.innerHTML = "<img class = 'picture' src = 'img/dp.png'>";
+                plin.innerHTML = "<img class = 'picture' src = './img/dp.png'>";
 
                 $(name).text(users[id].name); 
                 
@@ -199,18 +199,23 @@
     
     <body>
         
-        <div id = "header">
-            <img src = "img/cloud.gif" width = "80">
-            <img src = "img/moony.gif" width = "100">
-            <img src = "img/cloud2.png" width = "80">
-            <img src = "img/cloud3.png" width = "80">
-             <img src = "img/cloud.gif" width = "80">
+        <div id = "headerCon">
+            <div id = "header">
+                <img src = "../WEBAPDE-MP1/img/cloud.gif" width = "80">
+                <img src = "../WEBAPDE-MP1/img/moony.gif" width = "100">
+                <img src = "../WEBAPDE-MP1/img/cloud2.png" width = "80">
+                <img src = "../WEBAPDE-MP1/img/cloud3.png" width = "80">
+                <img src = "../WEBAPDE-MP1/img/cloud.gif" width = "80">
+            </div>
+            <div id = "title">
+                <img src = "../WEBAPDE-MP1/img/title.png"  id = "titlepic" height = "50">
+            </div>
         </div>
         
         <div class = "button" style = "left: -5px">
             <div id = "bstyle">
             
-                <img src = "img/design2.gif">
+                <img src = "../WEBAPDE-MP1/img/design2.gif">
                 
             </div>
         </div>
@@ -219,25 +224,25 @@
           <div class = "con">
              <a href = "home.html">
                   <div class = "anothercon">
-                    <img src = "img/home2.png" id = "homeicon">
+                    <img src = "../WEBAPDE-MP1/img/home2.png" id = "homeicon">
                     <span id = "hometext" class = "text">home</span>
                     </div>
              </a> 
               <a href = "gallery.html">
                   <div class = "anothercon">
-                    <img src = "img/gallery.png" id = "galicon">
+                    <img src = "../WEBAPDE-MP1/img/gallery.png" id = "galicon">
                       <span id = "galtext" class = "text" >gallery</span>
                   </div>
               </a>  
               <a href = "users.html">
                   <div class = "anothercon">
-                    <img src = "img/prof.png" id = "profcon">
+                    <img src = "../WEBAPDE-MP1/img/prof.png" id = "profcon">
                       <span id = "proftext" class = "text" >profiles</span>
                  </div>
               </a> 
                 <a href = "galAlbum.html">
                     <div class = "anothercon">
-                        <img src = "img/album.png" id = "alcon">
+                        <img src = "../WEBAPDE-MP1/img/album.png" id = "alcon">
                         <span id = "altext" class = "text" >albums</span>
                     </div>
                   </a> 

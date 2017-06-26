@@ -277,6 +277,27 @@
             }
             
             function start() {
+                var url = document.URL; 
+                var userid = url.substring(url.indexOf('?')+1);
+                lastAlbum = albums.length -1;
+                lastPost = posts.length - 1;
+
+                lat = users[userid-1].address.geo.lat;
+                lng = users[userid-1].address.geo.lng;
+
+                initialize();
+                createUserProfile(userid-1);
+                getUsersPost(userid);
+                getUserAlbums(userid);
+                
+                $('#nextPost').click(function() {
+                    getUsersPost(userid);
+                });
+                
+                $('#nextAlbum').click(function() {
+                   getUserAlbums(userid); 
+                });
+                
                 
                 $( ".button" ).click(function() {
 
@@ -313,34 +334,11 @@
                     }
                     
                 });
-                
-                var url = document.URL; 
-                var userid = url.substring(url.indexOf('?')+1);
-                lastAlbum = albums.length -1;
-                lastPost = posts.length - 1;
-
-                lat = users[userid-1].address.geo.lat;
-                lng = users[userid-1].address.geo.lng;
-
-                initialize();
-                createUserProfile(userid-1);
-                getUsersPost(userid);
-                getUserAlbums(userid);
-                
-                $('#nextPost').click(function() {
-                    getUsersPost(userid);
-                });
-                
-                $('#nextAlbum').click(function() {
-                   getUserAlbums(userid); 
-                });
-                
             }
                 
             $(document).ready(function() {
                
                 $.when(getUsers(), getAlbums(), getPhotos(), getPosts()).done(function() {
-                    
                     start(); 
                 }); 
             }); 

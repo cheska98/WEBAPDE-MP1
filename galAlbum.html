@@ -207,8 +207,9 @@
                         $('#header').removeClass("off");
                         };
                     });
-                 $('#searchBox').keydown(function (e){
-                    if(e.keyCode == 13
+                
+                 $('#searchBox').keydown(function (e) {
+                    if(e.keyCode == 13) {   
                         var value = document.getElementById('searchBox').value;
                         var i;
                         var post, photo, user, album; 
@@ -221,8 +222,9 @@
                         if(!post && !photo && !user && !album)
                                 alert(value + " is not Found!");
                             return false;
-                    }
-                });
+                        }
+                    });
+                
                 $(document).on('click', '.images', function () { 
                     var id = $(this).attr('alt');
                     creatModal(id-1);
@@ -235,6 +237,7 @@
                 $('.close').click(function () { 
                      $('.modal').hide();
                 }); 
+                
             }
             
             $(document).ready(function () {

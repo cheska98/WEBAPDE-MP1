@@ -5,9 +5,9 @@
         <link rel ="shortcut icon" href = "http://vl.rv.ua/templates/vl/images/favicon.ico"/>
         
        	<link rel = "stylesheet" href = "css/album.css">
-        <link rel = "stylesheet" type = "text/css" href = "../WEBAPDE-MP1/css/toolbar.css">
+        <link rel = "stylesheet" type = "text/css" href = "css/toolbar.css">
         
-        <script src ="../WEBAPDE-MP1/js/jquery-ui.js"></script>
+        <script src ="js/jquery-ui.js"></script>
         <script src = "https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src = "js/jquery-3.2.1.js"></script>
         
@@ -16,8 +16,34 @@
             const num = 15; 
             var albums = [];
             var users = []; 
+            var posts = []; 
+            var photos = [];
             var lastAlbum; 
             
+            function getPhotos() { 
+                
+                return $.ajax({
+                    url : root +'/photos', 
+                    method : 'GET', 
+                    type : 'JSON',
+                    success : function(data) { 
+                        photos = data;
+                    }
+                });
+            
+            }
+            
+            function getPosts() { 
+            
+                return $.ajax({
+                    url : root +'/posts', 
+                    method : 'GET',
+                    type : 'JSON',
+                    success : function(data) { 
+                        posts = data; 
+                    }
+                });
+            }
             function getAlbums() { 
                 
                 return $.ajax({
@@ -59,7 +85,7 @@
                 var i; 
                 for(i = 0; i < photos.length; i++) 
                     if (photos[i].albumId == albumId)
-                        createPic(photos[i].id);
+                        createPic(i);
             
             }
             
@@ -96,6 +122,79 @@
                 $("#title").attr('href', "profile.html?" +albums[id].userId);
             }
             
+            function searchPost(value) {
+                        var i;
+                        var found = false; 
+
+                        for(i = 0; i < posts.length && !found; i++) { 
+                            if(posts[i].title == value) { 
+                                found = true; 
+                            }
+                        }
+
+                        if(found == true ) { 
+                            if(confirm("Do u want to Proceed?")) {
+                                window.location.href = "profile.html?" + posts[i-1].userId;
+                            } 
+                        }
+                        return found;
+                }
+                
+                function searchPhotos(value) {
+                        var i;
+                        var found = false; 
+
+                        for(i = 0; i < photos.length && !found; i++) { 
+                            if(photos[i].title == value) { 
+                                found = true; 
+                                }
+                            }
+
+                        if(found == true ) {                          if(confirm("Do u want to Proceed?")) {
+                               window.location.href = "album.html?" + photos[i-1].albumId;
+                            } 
+                        }
+                        return found;
+                }
+                
+                function searchAlbums(value) {
+                        var i;
+                        var found = false; 
+                        
+                        for(i = 0; i < albums.length && !found; i++) { 
+                            if(albums[i].title == value) { 
+                                found = true; 
+                            }
+                        }
+                
+                        if(found == true ) { 
+                            if(confirm("Do u want to Proceed?")) {
+                                    console.log(albums[i].id);
+                                    window.location.href = "album.html?" + albums[i-1].id;
+                                } 
+                        }
+                       return found;
+                }
+
+            function searchUsers(value) {
+                        var i;
+                        var found = false; 
+
+                        for(i = 0; i < users.length && !found; i++) { 
+                            if(users[i].name == value || users[i].username == value) { 
+                                found = true; 
+                            }
+                        }
+
+                        if(found == true ) { 
+                            if(confirm("Do u want to Proceed?")) {
+                                window.location.href = "profile.html?" + users[i-1].id;
+                            } 
+                        }
+                    return found;
+                
+            }
+            
             function start() {        
                 var id; 
                 id = document.URL; 
@@ -105,19 +204,6 @@
                 
                 setTitle(id-1); 
                 getAlbumPics(id);
-                
-                $(document).on('click', '.images', function () { 
-                    var id = $(this).attr('alt');
-                    creatModal(id-1);
-                }); 
-                
-                $('.modal').click(function(){
-                     $('.modal').hide();
-                }); 
-                
-                $('.close').click(function () { 
-                     $('.modal').hide();
-                }); 
                 
                 $( ".button" ).click(function() {
 
@@ -135,38 +221,42 @@
                         $('#slidemenu').animate({'left': '-205px'});
                         $('#header').removeClass("off");
                         };
-                    });
+                });
+                
+                $(document).on('click', '.images', function () { 
+                    var id = $(this).attr('alt');
+                    creatModal(id-1);
+                }); 
+                
+                $('.modal').click(function(){
+                     $('.modal').hide();
+                }); 
+                
+                $('.close').click(function () { 
+                     $('.modal').hide();
+                }); 
                 
                  $('#searchBox').keydown(function (e){
                     if(e.keyCode == 13){
-                        var value = document.getElementById('searchBox').value;
-                        
-                        var i;
-                        var found = false; 
-                        
-                        for(i = 0; i < albums.length && !found; i++) { 
-                            if(albums[i].title == value) { 
-                                found = true; 
-                            }
-                        }
-                
-                        if(found == true ) { 
-                            if(confirm("Do u want to Proceed?")) {
-                                    console.log(albums[i].id);
-                                    window.location.href = "album.html?" + albums[i-1].id;
-                                } 
-                        }
-                        else if(found == false)
-                            alert(value + " is not Found!");
-                        return false;
-                    }
+                                var value = document.getElementById('searchBox').value;
+                                var i;
+                                var post, photo, user, album; 
+
+                                post = searchPost(value); 
+                                photo = searchPhotos(value);
+                                album = searchAlbums(value);
+                                user = searchUsers(value);
+
+                                if(!post && !photo && !user && !album)
+                                    alert(value + " is not Found!");
+                                return false;}
                 });
                 
             }
                 
             $(document).ready(function () {
                 
-                $.when(getAlbums(), getPhotos(), getUsers()).done(function(){
+                $.when(getAlbums(), getPhotos(), getUsers(), getPosts()).done(function(){
                     start(); 
                 });
                                  
@@ -181,21 +271,21 @@
         
         <div id = "headerCon">
             <div id = "header">
-                <img src = "../WEBAPDE-MP1/img/cloud.gif" width = "80">
-                <img src = "../WEBAPDE-MP1/img/moony.gif" width = "100">
-                <img src = "../WEBAPDE-MP1/img/cloud2.png" width = "80">
-                <img src = "../WEBAPDE-MP1/img/cloud3.png" width = "80">
-                <img src = "../WEBAPDE-MP1/img/cloud.gif" width = "80">
+                <img src = "img/cloud.gif" width = "80">
+                <img src = "img/moony.gif" width = "100">
+                <img src = "img/cloud2.png" width = "80">
+                <img src = "img/cloud3.png" width = "80">
+                <img src = "img/cloud.gif" width = "80">
             </div>
             <div id = "title">
-                <img src = "../WEBAPDE-MP1/img/title.png"  id = "titlepic" height = "50">
+                <img src = "img/title.png"  id = "titlepic" height = "50">
             </div>
         </div>
         
         <div class = "button" style = "left: -5px">
             <div id = "bstyle">
 
-                <img src = "../WEBAPDE-MP1/img/design2.gif">
+                <img src = "img/design2.gif">
 
             </div>
         </div>
@@ -204,25 +294,25 @@
           <div class = "con">
              <a href = "home.html">
                   <div class = "anothercon">
-                    <img src = "../WEBAPDE-MP1/img/home2.png" id = "homeicon">
+                    <img src = "img/home2.png" id = "homeicon">
                     <span id = "hometext" class = "text">home</span>
                     </div>
              </a> 
               <a href = "gallery.html">
                   <div class = "anothercon">
-                    <img src = "../WEBAPDE-MP1/img/gallery.png" id = "galicon">
+                    <img src = "img/gallery.png" id = "galicon">
                       <span id = "galtext" class = "text" >gallery</span>
                   </div>
               </a>  
               <a href = "users.html">
                   <div class = "anothercon">
-                    <img src = "../WEBAPDE-MP1/img/prof.png" id = "profcon">
+                    <img src = "img/prof.png" id = "profcon">
                       <span id = "proftext" class = "text" >profiles</span>
                  </div>
               </a> 
                 <a href = "galAlbum.html">
                     <div class = "anothercon">
-                        <img src = "../WEBAPDE-MP1/img/album.png" id = "alcon">
+                        <img src = "img/album.png" id = "alcon">
                         <span id = "altext" class = "text" >albums</span>
                     </div>
                   </a> 

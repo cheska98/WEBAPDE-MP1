@@ -290,4 +290,13 @@ a:hover {
     opacity: 1;
     box-shadow: 5px 5px 2.5px #888888;
     transition: 0.3s;
+} 
+
+a.morelink {
+    text-decoration:none;
+    outline: none;
+}
+.morecontent span {
+    display: none;
+    color: black;
 }

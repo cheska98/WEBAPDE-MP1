@@ -15,19 +15,9 @@
             var albums = []; 
             var photos = [];
             var posts = []; 
-            var lat, lng;
-                
-            function getPosts() { 
+            var lat, lng;  
+            var lastPost, lastAlbum;
             
-                return $.ajax({
-                    url : root +'/posts', 
-                    method : 'GET',
-                    type : 'JSON',
-                    success : function(data) { 
-                        posts = data; 
-                    }
-                });
-            }
                
             function getUsers() { 
                 
@@ -37,6 +27,18 @@
                     type : 'JSON',
                     success : function(data) { 
                         users = data;
+                    }
+                });
+            }
+            
+            function getPosts() { 
+            
+                return $.ajax({
+                    url : root +'/posts', 
+                    method : 'GET',
+                    type : 'JSON',
+                    success : function(data) { 
+                        posts = data; 
                     }
                 });
             }
@@ -89,18 +91,6 @@
     
             }
             
-            function getUsersPost(userId) { 
-                var i;
-             
-                for( i = 0; i < posts.length; i++) {
-                    if(posts[i].userId == userId) {
-                        createPost(i); 
-                    }
-                }
-                
-            
-            }
-            
             function createPost(postId) {
                 
                 var pos = document.createElement('div'); 
@@ -121,16 +111,40 @@
                 
             }
             
+            function getUsersPost(userId) { 
+                var i, j;
+             
+                for(i = lastPost, j = 0; i > -1 && j < 5; i--) {
+                    if(posts[i].userId == userId) {
+                        createPost(i); 
+                        j++;
+                        if (i == 0) {
+                            $('#nextPost').hide();
+                            break;
+                        }
+                    }
+                }
+                lastPost = i;
+            }
+            
             function getUserAlbums(Id) { 
-                var i = 0; 
+                var i, j; 
               
-                for(i= 0; i < albums.length; i++) { 
-                    if(albums[i].userId == Id) {
+                for(i = lastAlbum, j = 0; i > -1 && j < 5; i--) { 
+                    if (albums[i].userId == Id) {
                         getAlbumPics(i+1);
+                        j++;
+                        if(i == 0) {
+                            i = -1;
+                            $('#nextAlbum').hide();
+                            break;
+                        }
                     }
              
+                }
+                lastAlbum = i;
             }
-            }
+            
             function getAlbumPics(albumId) { 
               var index, i; 
               var found = false; 
@@ -188,18 +202,6 @@
             google.maps.event.addDomListener(window,'load', initialize);
             
             function start() {
-                    var url = document.URL; 
-                    var userid = url.substring(url.indexOf('?')+1);
-                
-                    lat = users[userid-1].address.geo.lat;
-                    lng = users[userid-1].address.geo.lng;
-                    console.log(lat);
-                    console.log(lng);
-                
-                    initialize();
-                    createUserProfile(userid-1);
-                    getUsersPost(userid);
-                    getUserAlbums(userid);
                 
                 $( ".button" ).click(function() {
 
@@ -217,17 +219,46 @@
                         $('#slidemenu').animate({'left': '-205px'});
                         $('#header').removeClass("off");
                         };
-                    });
+                });
+                
+                $('#searchBox').keydown(function (e){
+                    if(e.keyCode == 13){
+                        var value = document.getElementById('searchBox').value;
+                        alert(value);
+                    }
+                });
+                
+                var url = document.URL; 
+                var userid = url.substring(url.indexOf('?')+1);
+                lastAlbum = albums.length -1;
+                lastPost = posts.length - 1;
+
+                lat = users[userid-1].address.geo.lat;
+                lng = users[userid-1].address.geo.lng;
+
+                initialize();
+                createUserProfile(userid-1);
+                getUsersPost(userid);
+                getUserAlbums(userid);
+                
+                $('#nextPost').click(function() {
+                    getUsersPost(userid);
+                });
+                
+                $('#nextAlbum').click(function() {
+                   getUserAlbums(userid); 
+                });
                 
             }
                 
-             $(document).ready(function() {
+            $(document).ready(function() {
                
                 $.when(getUsers(), getAlbums(), getPhotos(), getPosts()).done(function() {
                     
                     start(); 
                 }); 
-            });  
+            }); 
+            
         </script>
         
     </head>
@@ -298,15 +329,31 @@
             
             <div id = "content">
             
-                <div class = "col" id = "posts">
+                <div class = "col" id = "postCon">
                 
-                    <div class = "header" id = "postsHeader"> POSTS </div>
+                    <div class = "header"> POSTS </div>
+                    
+                    <div id = "posts"></div>
+                
+                    <div class = "next" id = "nextPost">
+
+                        <a><img src = "../WEBAPDE-MP1/img/down.png"></a>
+
+                    </div>
                     
                 </div>
         
-                <div class = "col" id = "albums">
-                
+                <div class = "col" id = "albumCon">
+                    
                     <div class = "header"> ALBUMS </div>
+                    
+                    <div id = "albums"></div>
+                    
+                    <div class = "next" id = "nextAlbum">
+
+                        <a><img src = "../WEBAPDE-MP1/img/down.png"></a>
+
+                    </div>
                         
                 </div>
                 

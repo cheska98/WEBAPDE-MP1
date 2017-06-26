@@ -194,6 +194,20 @@ a:hover {
     background: rgba(218,218,219,0.6);
 }
 
+.next {
+    width: 90px;
+    height: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+.next:hover, .next:focus, .next:active{
+    background-color: rgba(218, 218, 219, 0.2);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
 .header {
     width: 443px;
     display: block;
@@ -209,8 +223,15 @@ a:hover {
     box-sizing: border-box;
 }
 
-#posts {
+#postCon {
     float: left;
+}
+
+#albumCon {
+    float: right;
+}
+
+#posts {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -236,10 +257,6 @@ a:hover {
 
 .post:hover {
     background: rgba(218,218,219,0.8);
-}
-
-#albums {
-    float: right;
 }
 
 .album {

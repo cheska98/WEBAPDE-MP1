@@ -125,7 +125,7 @@
                         
                         loadMorePic(photos.length-1); 
 
-                        $('.images').click(function () { 
+                        $(document).on('click', '.images',function () { 
                             var id = $(this).attr('alt');
                             console.log(id);
                             creatModal(id - 1);

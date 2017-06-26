@@ -122,7 +122,7 @@
                         };
                     });
                 
-                $('.images').click(function () { 
+                $(document).on('click', '.images', function () { 
                     var id = $(this).attr('alt');
                     creatModal(id-1);
                 }); 

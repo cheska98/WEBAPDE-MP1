@@ -145,7 +145,26 @@
                 $('#searchBox').keydown(function (e){
                     if(e.keyCode == 13){
                         var value = document.getElementById('searchBox').value;
-                        alert(value);
+                        console.log(value);
+                        var i;
+                        var found = false; 
+                        
+                        for(i = 0; i < albums.length && !found; i++) { 
+                            if(albums[i].title == value) { 
+                                console.log(value +albums[i].title);
+                                found = true; 
+                            }
+                        }
+                
+                        if(found == true ) { 
+                            if(confirm("Do u want to Proceed?")) {
+                                    console.log(albums[i].id);
+                                    window.location.href = "album.html?" + albums[i-1].id;
+                                } 
+                        }
+                        else if(found == false)
+                            alert(value + " is not Found!");
+                        return false;
                     }
                 });
                 

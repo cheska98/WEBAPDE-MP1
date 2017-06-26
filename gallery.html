@@ -96,34 +96,9 @@
                 $('.modal').show();
             }
             
-            $.when(getAlbums(), getPhotos(), getUsers()).done(function(){
-                start(); 
-                    
-            });
-            
             function start() { 
                 
-                $( ".button" ).click(function() {
-
-                    if (!$('#header').hasClass("off")) {
-                        $('.button').animate({ 'left': '+201px' 
-                        });
-
-                        $('#slidemenu').animate({'left': '0px'});
-
-                        $('#header').addClass("off");
-                    }
-
-                    else {
-                        $('.button').animate({'left': '-5px'});
-                        $('#slidemenu').animate({'left': '-205px'});
-                        $('#header').removeClass("off");
-                        };
-                    });
-                
-                    $(document).ready(function() {
-                        
-                        loadMorePic(photos.length-1); 
+                 loadMorePic(photos.length-1); 
 
                         $(document).on('click', '.images',function () { 
                             var id = $(this).attr('alt');
@@ -145,14 +120,54 @@
                         });
                         
                         $('#searchBox').keydown(function (e){
-                            if(e.keyCode == 13){
+                            if(e.keyCode == 13) {
+                                
                                 var value = document.getElementById('searchBox').value;
-                                alert(value);
+                                var i;
+                                var found = false; 
+
+                                for(i = 0; i < photos.length && !found; i++) { 
+                                    if(photos[i].title == value) { 
+                                        found = true; 
+                                    }
+                                }
+
+                                if(found == true ) { 
+                                    if(confirm("Do u want to Proceed?")) {
+                                            window.location.href = "album.html?" + photos[i-1].albumId;
+                                        } 
+                                }
+                                else if(found == false)
+                                    alert(value + " is not Found!");
+                                return false;
                             }
                         });
-                    
-                    }); 
+                
+                        $( ".button" ).click(function() {
+
+                            if (!$('#header').hasClass("off")) {
+                                $('.button').animate({ 'left': '+201px' 
+                                });
+
+                                $('#slidemenu').animate({'left': '0px'});
+
+                                $('#header').addClass("off");
+                            }
+
+                            else {
+                                $('.button').animate({'left': '-5px'});
+                                $('#slidemenu').animate({'left': '-205px'});
+                                $('#header').removeClass("off");
+                                };
+                            });
             } 
+            
+                $(document).ready(function() {
+                    $.when(getAlbums(), getPhotos(), getUsers()).done(function(){
+                            start();
+                        });
+                    }); 
+            
         </script>
       
     </head>

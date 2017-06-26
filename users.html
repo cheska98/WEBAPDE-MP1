@@ -189,7 +189,24 @@
                 $('#searchBox').keydown(function (e){
                     if(e.keyCode == 13){
                         var value = document.getElementById('searchBox').value;
-                        alert(value);
+                        var i;
+                        var found = false; 
+
+                        for(i = 0; i < users.length && !found; i++) { 
+                            if(users[i].name == value || users[i].username == value) { 
+                                found = true; 
+                            }
+                        }
+
+                        if(found == true ) { 
+                            if(confirm("Do u want to Proceed?")) {
+                                console.log("profile.html?" + users[i-1].id);
+                                window.location.href = "profile.html?" + users[i-1].id;
+                            } 
+                        }
+                        else if(found == false)
+                            alert(value + " is not Found!");
+                            return false;
                     }
                 });
                 

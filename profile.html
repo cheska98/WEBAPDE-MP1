@@ -356,8 +356,7 @@
 
                 lat = users[userid-1].address.geo.lat;
                 lng = users[userid-1].address.geo.lng;
-
-                initialize();
+                
                 createUserProfile(userid-1);
                 getUsersPost(userid);
                 getUserAlbums(userid);
@@ -403,6 +402,7 @@
                    getUserAlbums(userid); 
                 });
                 
+                initialize();
              
             }
                 

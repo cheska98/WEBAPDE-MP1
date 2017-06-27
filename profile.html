@@ -361,6 +361,12 @@
             getUserAlbums(userid);
 
             $('#nextPost').click(function() {
+
+                lat = users[userid-1].address.geo.lat;
+                lng = users[userid-1].address.geo.lng;
+                
+                createUserProfile(userid-1);
+
                 getUsersPost(userid);
                 $(document).ready(function() {
                 var showChar = 90;
@@ -401,6 +407,7 @@
                getUserAlbums(userid); 
             });
                 
+                initialize();
              
             }
                 
@@ -550,7 +557,7 @@
 
             </div>
         </div>
-        <script async defer src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB6XRPh-eHTYSA8NCEk36r54LD_o-zFvRg&callback=initMap">
+        <script src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB6XRPh-eHTYSA8NCEk36r54LD_o-zFvRg&callback=initMap">
         </script>
 
     </body>

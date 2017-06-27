@@ -206,6 +206,31 @@ a:hover {
     margin-bottom: 6px;
 }
 
+.email {
+    line-height: 31px;
+    vertical-align: middle;
+}
+
+.addr {
+    line-height: 31px;
+    vertical-align: middle;
+}
+
+.phone {
+    line-height: 31px;
+    vertical-align: middle;
+}
+
+.web {
+    line-height: 31px;
+    vertical-align: middle;
+}
+
+.comp {
+    line-height: 26px;
+    vertical-align: middle;
+}
+
 .emailIcon {
     width: 31px;
     height: 31px;
